@@ -5,6 +5,7 @@ describe('test', () => {
 
         // Jest
         expect(3).toBe(3);
+        expect(4).not.toBe(3);
         expect('234').toMatch('234');
         expect('3').toMatchSnapshot();
 
@@ -25,15 +26,8 @@ describe('test', () => {
         expect('radar').to.be.palindrome();
 
         // chai-as-promised
-        await expect(givePromise()).to.eventually.equal(42);
-        await expect(giveRejectedPromise()).to.be.eventually.rejectedWith(42);
+        await expect(Promise.resolve(42)).to.eventually.equal(42);
+        await expect(Promise.reject('42')).to.be.eventually.rejectedWith('42');
     });
 
 });
-
-async function givePromise() {
-    return 42;
-}
-async function giveRejectedPromise() {
-    return Promise.reject(42);
-}
